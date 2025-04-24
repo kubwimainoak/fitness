@@ -1,0 +1,134 @@
+---
+description: Apply these rules when making changes to the project
+globs:
+alwaysApply: true
+---
+
+Update this rule if user requested changes to the project requirement, etc.
+## Project Overview
+
+* **Type:** cursor_project_rules
+* **Description:** I want to build a progressive web app that allows users access into any gym. The app aims to partner with gyms and offer subscription models that group gyms by price into distinct tiers where users can cancel anytime.
+* **Primary Goal:** To create a universal gym membership platform that simplifies gym access for individual members through a tiered subscription model, while providing gym partners with an analytics and communication dashboard for managing their offerings.
+
+## Project Structure
+
+### Framework-Specific Routing
+
+* **Directory Rules:**
+
+    * **Next.js 14 (App Router):** Use the `app/[route]/page.tsx` convention to define nested route folders for each feature module.
+    * Example 1: "Next.js 14 (App Router)" → `app/[route]/page.tsx` conventions
+    * Example 2: "Next.js (Pages Router)" → `pages/[route].tsx` pattern (not applicable for App Router projects)
+    * Example 3: "React Router 6" → `src/routes/` with `createBrowserRouter`
+
+### Core Directories
+
+* **Versioned Structure:**
+
+    * **app/api:** Next.js 14 API routes implemented through Route Handlers for backend interactions.
+    * **app/dashboard:** Hosts layout and page files (e.g., `app/dashboard/layout.tsx`) for partner dashboard features.
+
+### Key Files
+
+* **Stack-Versioned Patterns:**
+
+    * **app/dashboard/layout.tsx:** Implements the Next.js 14 root layout for the dashboard sections.
+    * **pages/_app.js:** (If using Pages Router) for project-level customization; however, in an App Router project, this file should not be present.
+
+## Tech Stack Rules
+
+* **Version Enforcement:**
+
+    * **next@14:** App Router is required. Do not use legacy features like `getInitialProps`.
+    * **node.js:** Follow asynchronous and secure coding patterns to safeguard API endpoints.
+    * **aws_s3:** Ensure proper IAM policies and bucket versioning are in place for secure file storage.
+    * **jwt:** Enforce strict token validation and expiry mechanisms on every API call.
+    * **paypal:** Integrate webhooks and sandbox testing environments to securely manage recurring payments.
+    * **pwa:** Use service workers to enable offline support and caching of static assets.
+    * **supabase:** Apply row-level security and index key fields for optimized database performance.
+
+## PRD Compliance
+
+* **Non-Negotiable:**
+
+    * "cancel anytime" – The universal gym membership model must allow users the flexibility to cancel their subscriptions at any time, and pricing tiers must be transparently grouped based on gym pricing ranges.
+
+## App Flow Integration
+
+* **Stack-Aligned Flow:**
+
+    * Example: "Next.js 14 Auth Flow → `app/auth/login/page.tsx` uses server actions for secure and efficient authentication."
+
+## Best Practices
+
+* **backend: node.js**
+
+    * Use asynchronous patterns and robust error handling.
+    * Protect API endpoints with secure coding practices and environment variable configurations.
+    * Regularly update dependencies and maintain code quality.
+
+* **storage: aws_s3**
+
+    * Secure buckets with strict IAM policies.
+    * Implement versioning and backup strategies for critical data assets.
+    * Optimize content delivery through proper caching policies.
+
+* **authentication: jwt**
+
+    * Ensure tokens are signed and have a reasonable expiration.
+    * Validate tokens on every request and use HTTPS to secure token transmission.
+    * Regularly rotate secret keys and monitor for suspicious activities.
+
+* **payment_processor: paypal**
+
+    * Use webhooks to verify transaction statuses and secure the payment flow.
+    * Integrate sandbox mode for testing before moving to production.
+    * Implement error handling and retry mechanisms to handle API rate limits or outages.
+
+* **pwa**
+
+    * Leverage service workers for effective caching and offline access.
+    * Ensure the app adheres to web standards for a native-like experience on mobile devices.
+    * Optimize asset sizes and load times for improved performance.
+
+* **database: supabase**
+
+    * Use row-level security to protect sensitive user and transactional data.
+    * Monitor query performance and create indexes where needed.
+    * Regularly backup data and conduct integrity checks.
+
+* **frontend: nextjs**
+
+    * Use the App Router (app directory) for Next.js 14 projects to benefit from server components and streamlined routing.
+    * Avoid mixing legacy Pages Router and App Router structures.
+    * Optimize for performance by employing static generation and server-side rendering where applicable.
+
+## Rules
+
+* Derive folder/file patterns **directly** from the techStackDoc versions provided.
+* If Next.js 14 App Router is used: enforce the `app/` directory with nested route folders; do not include a `pages/` directory.
+* If using the Pages Router: maintain a flat `pages/*.tsx` structure.
+* Mirror this logic for other frameworks such as React Router, SvelteKit, etc.
+* Never mix version patterns (e.g., no `pages/` in App Router projects).
+
+## Rules Metrics
+
+Before starting the project development, create a metrics file in the root of the project called
+
+`cursor_metrics.md`.
+
+### Instructions:
+
+* Each time a cursor rule is used as context, update `cursor_metrics.md`.
+* Use the following format for `cursor_metrics.md:`
+
+# Rules Metrics
+
+## Usage
+
+The number of times rules is used as context
+
+* rule-name.mdc: 5
+* another-rule.mdc: 2
+* ...other rules

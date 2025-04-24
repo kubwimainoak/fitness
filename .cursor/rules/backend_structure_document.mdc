@@ -1,0 +1,216 @@
+---
+description: Apply these rules when making changes to the backend
+globs: 
+---
+
+Update this rule if user requested changes to the project requirement, etc.
+# Backend Structure Document
+
+This document outlines the backend architecture for our progressive web app that offers a universal gym membership. Below you will find an easy-to-understand description of key backend components, including how our system is built to be scalable, maintainable, and secure for both individual gym members and partner gyms.
+
+## 1. Backend Architecture
+
+Our backend is built using a modular approach with the following key frameworks and design patterns:
+
+- **Framework:**
+  - Node.js serves as the server, handling API requests, business logic, and integration with third-party services such as PayPal.
+
+- **Design Patterns:**
+  - Modular code structure to separate services (authentication, payment, class booking, dashboards) ensuring maintainability.
+  - RESTful API design that allows clear communication between the frontend and backend.
+  - Use of JWT (JSON Web Tokens) to secure user sessions and API access.
+
+- **Scalability & Performance:**
+  - The architecture supports scalability by organizing backend services into discrete modules that can be scaled independently.
+  - Efficient load handling is implemented through the use of caching and a cloud-based infrastructure, ensuring quick response times even at high usage.
+
+## 2. Database Management
+
+Our application uses a combination of technologies for structured data and file storage:
+
+- **Database Technology:**
+  - **Supabase:** This is used as our main SQL database (backed by PostgreSQL) to store data related to users, gym details, subscription tiers, class schedules, and analytics.
+
+- **Key Data Management Practices:**
+  - Data is stored in a structured format using relational tables to maintain consistency and integrity.
+  - Regular backups and data validation routines are set up to preserve data accuracy as gym partners update pricing, location, and scheduling information.
+  - Access to data is managed through secure APIs that enforce proper authentication and authorization protocols.
+
+## 3. Database Schema
+
+### Human Readable Format
+
+Our database schema is organized into several key areas:
+
+- **Users Table:** Stores member details such as email, password (encrypted), and profile information.
+- **Gyms Table:** Contains details about each gym including pricing, location, available classes, and schedule information.
+- **Subscription Tiers Table:** Defines the pricing tiers which group gyms by similar pricing ranges (e.g., affordable, medium, premium).
+- **Bookings Table:** Records class bookings made by users, including dates, times, and gym identification.
+- **Analytics Table:** Holds records of gym partners’ analytics such as visit frequency, duration of visits, and engagement metrics.
+- **Partner Dashboard Table:** Manages gym partner data such as communication logs, subscription engagements, and commission records.
+
+### Example SQL Schema (PostgreSQL)
+
+Below is a simplified version of the database schema in SQL format:
+
+-------------------------------------------------
+-- Users Table
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Gyms Table
+CREATE TABLE gyms (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    pricing DECIMAL(10,2) NOT NULL,
+    location GEOGRAPHY(Point, 4326),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Subscription Tiers Table
+CREATE TABLE subscription_tiers (
+    id SERIAL PRIMARY KEY,
+    tier_name VARCHAR(50) NOT NULL,
+    min_price DECIMAL(10,2) NOT NULL,
+    max_price DECIMAL(10,2) NOT NULL
+);
+
+-- Bookings Table
+CREATE TABLE bookings (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    gym_id INT REFERENCES gyms(id),
+    booking_date TIMESTAMP NOT NULL,
+    class_details TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Analytics Table
+CREATE TABLE analytics (
+    id SERIAL PRIMARY KEY,
+    gym_id INT REFERENCES gyms(id),
+    visit_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    visit_duration INT, -- in minutes
+    visit_count INT
+);
+
+-- Partner Dashboard (Communication & Commission) Table
+CREATE TABLE partner_dashboard (
+    id SERIAL PRIMARY KEY,
+    gym_id INT REFERENCES gyms(id),
+    message TEXT,
+    commission DECIMAL(10,2),
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-------------------------------------------------
+
+## 4. API Design and Endpoints
+
+Our APIs are designed with a RESTful approach to ensure simplicity and clear separation of concerns between client and server.
+
+- **Design Approach:**
+  - RESTful endpoints with clear naming conventions that represent resources (e.g., /users, /gyms, /subscriptions, /bookings).
+  - Use of HTTP methods: GET for retrieving data, POST for creating new entries, PUT/PATCH for updates, and DELETE for removals.
+  - JWT-based authentication protects sensitive routes and endpoints.
+
+- **Key Endpoints:**
+
+  - **User Authentication & Management:**
+    - POST /auth/register: Create a new account.
+    - POST /auth/login: Log in a user and provide a JWT token.
+    - GET /users/profile: Retrieve user profile information (secured).
+
+  - **Subscription Tiers & Payment:**
+    - GET /subscriptions/tiers: List all available subscription tiers.
+    - POST /subscriptions/subscribe: Process subscription sign-up and handle recurring payments (integrated with PayPal).
+    - PATCH /subscriptions/cancel: Cancel an active subscription.
+
+  - **Gym Search & Class Bookings:**
+    - GET /gyms?location={lat,long}&radius={value}: Search for gyms based on location and radius filter.
+    - GET /gyms/{gymId}/classes: Get the daily or weekly class schedule for a specific gym.
+    - POST /bookings: Create a booking for a selected class.
+
+  - **Partner Dashboard:**
+    - GET /partners/dashboard: Retrieve analytics and engagement data for a partner gym.
+    - PUT /partners/update: Update gym pricing, schedule, or details.
+    - POST /partners/communicate: Send communication messages to subscribers (with commission tracking).
+
+## 5. Hosting Solutions
+
+Our hosting environment is designed to be reliable and scalable, meeting the needs of both high user engagement and data-intensive operations.
+
+- **Cloud Providers & Platform:**
+  - We are leveraging cloud hosting (for example, AWS) for both our application server and our file storage using AWS S3.
+  - This choice ensures high availability, flexible scaling based on user demand, and cost-effectiveness with a pay-as-you-go model.
+
+- **Benefits:**
+  - **Reliability:** Cloud providers offer redundancy and backup features to minimize downtime.
+  - **Scalability:** Resources can be dynamically allocated as the platform grows in user base and data volume.
+  - **Cost-effectiveness:** Paying only for the resources used helps manage operational expenses effectively.
+
+## 6. Infrastructure Components
+
+The backend infrastructure is reinforced by several key components to ensure seamless performance:
+
+- **Load Balancers:**
+  - Distribute incoming requests across multiple Node.js application servers to prevent overload and improve response times.
+
+- **Caching Mechanisms:**
+  - Employ caching techniques (e.g., in-memory caches or Redis) to store frequently accessed data such as gym lists and subscription data.
+
+- **Content Delivery Networks (CDNs):**
+  - Use CDNs to quickly serve static assets stored in AWS S3, reducing latency for global users.
+
+- **Serverless Functions:**
+  - In some aspects, certain tasks (like processing analytics or handling periodic data updates) can be delegated to serverless functions, which run only when needed.
+
+## 7. Security Measures
+
+Security is a top priority throughout our backend. Key measures include:
+
+- **Authentication & Authorization:**
+  - All sensitive endpoints are protected using JWT-based authentication.
+  - Role-based access is implemented to ensure that only authorized users (e.g., gym partners) can access specific endpoints like the partner dashboard.
+
+- **Data Encryption:**
+  - Data in transit is encrypted using standard HTTPS protocols, while sensitive data is stored encrypted in the database.
+
+- **Secure Payment Processing:**
+  - Integration with PayPal is done with security best practices in mind, ensuring that payment details are meditated and processed in a secure environment.
+
+- **Regular Audits & Updates:**
+  - The system is regularly audited for potential vulnerabilities, and security patches are promptly applied.
+
+## 8. Monitoring and Maintenance
+
+To keep the backend healthy and performing at its best, the following tools and practices are put in place:
+
+- **Performance Monitoring:**
+  - Tools such as New Relic or AWS CloudWatch monitor server performance, response times, and error rates in real-time.
+
+- **Logging:**
+  - Comprehensive logging of backend activities is maintained to track user interactions, system errors, and performance bottlenecks.
+
+- **Routine Maintenance:**
+  - Scheduled updates, security patches, and routine backups ensure that the backend remains robust and resilient.
+
+- **Analytics Dashboards:**
+  - Real-time dashboards provide the team with insights on server load, API usage, and other performance indicators, facilitating proactive maintenance.
+
+## 9. Conclusion and Overall Backend Summary
+
+The backend of our gym membership progressive web app is designed to be intuitive, secure, and scalable. Key highlights include:
+
+- A modular Node.js architecture that supports efficient handling of user authentication, gym searches, subscription management, and class bookings.
+- A robust SQL database (via Supabase/PostgreSQL) with a structured schema to handle user data, gym information, analytics, and bookings.
+- RESTful API endpoints that facilitate straightforward communication between the user interface and backend services.
+- Cloud-based hosting and infrastructure using AWS services ensure high reliability, scalability, and cost-effectiveness.
+- Comprehensive security measures and ongoing monitoring practices guarantee that user data is protected and the application remains responsive under varying loads.
+
+Unique aspects such as the partner dashboard for gym analytics and communication, as well as the flexible subscription model with PayPal integration, set our project apart by aligning closely with the needs of both gym members and gym partners. This holistic backend structure supports growth, responsiveness, and a seamless user experience throughout the app’s lifecycle.

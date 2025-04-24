@@ -1,0 +1,131 @@
+---
+description: review this document whenever we start a new phase in the implementation_plan
+globs: 
+---
+
+Update this rule if user requested changes to the project requirement, etc.
+# Project Requirements Document
+
+## 1. Project Overview
+
+The aim of this project is to create a progressive web app that gives gym members a “universal gym membership” — a single subscription that lets them access multiple gyms. Instead of signing up at each gym, members can choose a subscription tier that groups gyms by their pricing. This approach makes it easy for users to compare options, select a membership based on their budget, and cancel anytime if their needs change.
+
+This app is being built to simplify gym access for individual members and to offer gym partners a platform to showcase their facilities and track member usage. Key objectives include a user-friendly subscription model, a reliable recurring payment process with PayPal, and a dashboard that provides useful analytics for gym partners. Success will be measured by user engagement, subscription growth, and the quality of data available to partners for understanding member behavior.
+
+## 2. In-Scope vs. Out-of-Scope
+
+**In-Scope:**
+- User authentication and registration via email, using JWT.
+- A dashboard for gym members to view available subscription tiers grouped by gym pricing.
+- Integration with PayPal for recurring subscription payments.
+- Gym search functionality that allows users to find gyms by location and adjust the search radius.
+- Display of gym details, available classes, and a class-booking system with calendar integrations.
+- A dedicated partner dashboard where gym partners can update pricing, manage class schedules, view analytics (e.g., visit frequency, duration), and communicate with subscribers (for an additional fee).
+- Grouping gyms into pricing tiers based on existing gym prices.
+- Building the app as a Progressive Web App (PWA) to ensure a native-like experience across devices.
+
+**Out-of-Scope:**
+- Additional user engagement features like fitness challenges, loyalty rewards, or user reviews.
+- Integrations with additional payment gateways (only PayPal is planned for now).
+- Native mobile apps; the focus is solely on a PWA.
+- Comprehensive social features beyond the basic communication option provided for gym partners.
+- Detailed security compliance frameworks and advanced data privacy mechanisms (these will come in a later phase).
+
+## 3. User Flow
+
+A typical user journey starts with the user landing on a simple and streamlined login or registration page. Once logged in, the user is immediately taken to a dashboard where they can see different subscription tiers grouped by gym pricing. Here, users can review what each tier offers, including details about the gyms within that tier and any available classes. They can select their preferred tier, proceed to the payment page, and securely subscribe using PayPal. The app provides flexibility to adjust their current subscription or upgrade to access gyms outside their current tier if needed.
+
+After subscribing, users can search for gyms by specifying their current location and adjusting a radius filter to see gyms nearby. The search results display gyms within the selected tier and also offer the option to view gyms from other tiers for comparison. Users can then click on a specific gym to see detailed information including class schedules, which allows them to book classes directly from the app. This seamless flow from registration to subscription, search, and booking ensures a user-friendly experience that encourages ongoing engagement.
+
+## 4. Core Features
+
+- **User Authentication & Registration:**  
+  - Email-based sign-up and login, secured with JWT.
+  
+- **Subscription Tier Selection:**  
+  - Display gyms grouped into pricing tiers based on their current pricing.
+  - Allow users to select a subscription plan with the flexibility to cancel anytime.
+
+- **Payment Integration:**  
+  - Recurring subscription payment processing through PayPal.
+
+- **Gym Search & Discovery:**  
+  - Search gyms by user's current location with an adjustable radius.
+  - Option to view gyms outside the current subscription tier for potential upgrades.
+
+- **Class Booking System:**  
+  - Display gym class schedules (daily/weekly) and enable users to book classes.
+  - Real-time confirmations and calendar integrations for booked classes.
+
+- **Gym Partner Dashboard:**  
+  - Dashboard for gym partners to update gym information, manage class schedules, and track member engagement via analytics.
+  - Option for gym partners to communicate with subscribers for an extra fee (with commission payable to the platform).
+
+- **Progressive Web App (PWA) Capabilities:**  
+  - Provide an app-like experience across desktop and mobile browsers.
+
+## 5. Tech Stack & Tools
+
+- **Frontend:**  
+  - Framework: Next.js – for building a responsive and fast Progressive Web App.
+  - Design: The user interface will utilize richer, muted shades of blue and darker reds for a professional, inviting aesthetic.
+  
+- **Backend:**  
+  - Server: Node.js – for handling API requests and backend logic.
+  - Authentication: JWT – to secure user sessions.
+  - Integration: PayPal for recurring payment processing.
+
+- **Database & Storage:**  
+  - Database: Supabase – to store user data, gym information, and subscription details.
+  - File Storage: AWS S3 – for storing any static assets or media files.
+
+- **Tools & Integrations:**  
+  - IDE: Cursor – an advanced IDE integrated with real-time AI-powered coding suggestions.
+  - Other potential integrations may include mapping libraries for location-based searches and calendar services for class bookings.
+
+## 6. Non-Functional Requirements
+
+- **Performance:**  
+  - Fast load times and smooth interactivity typical for a PWA.
+  - Responsive design that adapts quickly across multiple devices (desktop, mobile, tablet).
+
+- **Security:**  
+  - Secure handling of user data and authentication tokens (JWT).
+  - Safe processing of payment transactions via PayPal.
+  - Data encryption in transit and at rest, with future improvements planned for a detailed compliance framework.
+
+- **Usability:**  
+  - Intuitive user interface with clear navigation, ensuring minimal learning curve.
+  - Accessibility features to cater to a broad audience, including responsive design.
+
+- **Scalability:**  
+  - Ability to handle an increasing number of gym partners, subscribers, and analytics data without significant performance degradation.
+  - Infrastructure that supports rapid growth and the possibility of adding new features in the future.
+
+## 7. Constraints & Assumptions
+
+- The app assumes gym partners will reliably provide and update their pricing, location details, and class schedules.
+- Dependency on the PayPal API for subscription payments; any limitations or changes in PayPal’s service could impact the payment processing.
+- The grouping of gyms into pricing tiers is based on existing pricing data, which may not always be uniform or up to date.
+- The PWA approach is chosen over native applications to allow for a single codebase across devices, assuming sufficient performance and offline-like capabilities can be achieved.
+- Future security and compliance requirements will be addressed in subsequent phases, assuming the current baseline setups meet initial project needs.
+
+## 8. Known Issues & Potential Pitfalls
+
+- **Variable Pricing Data:**  
+  - Gyms may provide inconsistent or frequently changing pricing, making it challenging to accurately group them into tiers.
+  - Mitigation: Implement a system for regular data validation and update the grouping algorithm to handle fluctuations.
+
+- **Payment Processing Challenges:**  
+  - Relying solely on PayPal could be risky if there are changes in API limits, rate limits, or service outages.
+  - Mitigation: Design the payment module with error handling and retry mechanisms, and consider the possibility of integrating an additional backup payment gateway in the future.
+
+- **User Location Accuracy:**  
+  - The gym search functionality depends on accurate location data from users, which may be affected by device inaccuracies.
+  - Mitigation: Offer adjustable radius settings and a manual location input option to enhance search accuracy.
+
+- **Analytics and Dashboard Delays:**  
+  - Collecting and processing real-time analytics for gym partners might introduce performance bottlenecks.
+  - Mitigation: Use batch processing techniques where real-time data is not critical and clear indicators are provided to the user in case of delays.
+
+This document lays the foundation for a clear and detailed roadmap that subsequent technical documents (Tech Stack Document, Frontend Guidelines, Backend Structure, App Flow, File Structure, IDE rules, etc.) will build upon. Every aspect of the project has been explained in clear everyday language to ensure there’s no ambiguity for the AI model working on later phases.

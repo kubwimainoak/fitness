@@ -1,0 +1,157 @@
+---
+description: review this document and follow it in chronological order
+globs: 
+---
+
+Update this rule if user requested changes to the project requirement, etc.
+# Implementation plan
+
+This implementation plan outlines a step-by-step process to build our Progressive Web App for a universal gym membership platform. The plan is organized into five phases: Environment Setup, Frontend Development, Backend Development, Integration, and Deployment. Each step contains references to the source documents (e.g., PRD, Tech Stack, App Flow) and specific file paths or commands.
+
+---
+
+## Phase 1: Environment Setup
+
+1. **Prevalidation:** Check if the current directory is already an initialized project by verifying the existence of a `package.json` file. If it exists, confirm with the team before proceeding to avoid reinitialization. *(PRD Section 1, Tech Stack Document)*
+
+2. **Node.js Installation:** Verify Node.js installation. If Node.js is not installed or the version is outdated, install Node.js from the official site. *(Tech Stack Document)
+
+   **Validation:** Run `node -v` to confirm the installation.
+
+3. **Initialize Next.js 14 Project:** Since the tech stack specifies Next.js and explicitly requires Next.js 14 for optimal integration with AI coding tools, run the following command:
+
+   ```bash
+   npx create-next-app@14 my-app
+   ```
+
+   Change directory:
+
+   ```bash
+   cd my-app
+   ```
+
+   *(PRD Section 1, Tech Stack Document)*
+
+4. **Configure Cursor for MCP (Supabase Connection):**
+   - **Prevalidation:** Check if a `.cursor` directory already exists in the project root. If not, create one.
+   - **Action:** Create a directory called `.cursor` in the project root.
+   - **Action:** Inside `.cursor`, create a file named `mcp.json`.
+   - **Instruction:** Depending on your OS, add the following configuration to `mcp.json`:
+
+     - **macOS:**
+       ```json
+       { "mcpServers": { "supabase": { "command": "npx", "args": ["-y", "@modelcontextprotocol/server-postgres", "<connection-string>"] } } }
+       ```
+
+     - **Windows:**
+       ```json
+       { "mcpServers": { "supabase": { "command": "cmd", "args": ["/c", "npx", "-y", "@modelcontextprotocol/server-postgres", "<connection-string>"] } } }
+       ```
+
+   - **Action:** Display the following link so you can obtain your Supabase connection string: [https://supabase.com/docs/guides/getting-started/mcp#connect-to-supabase-using-mcp](mdc:https:/supabase.com/docs/guides/getting-started/mcp#connect-to-supabase-using-mcp).
+   - **Action:** Once obtained, replace the `<connection-string>` placeholder with your actual connection string in `mcp.json`.
+   
+   - **Final Check:** Navigate to **Settings/MCP** in your Cursor IDE; you should see a green active status once successfully connected. *(Cursor Project Rules, Tech Stack Document)*
+
+---
+
+## Phase 2: Frontend Development
+
+5. **Create Authentication Pages:**
+   - **Action:** Create a login page at `/pages/login.js`.
+   - **Action:** Create a registration page at `/pages/register.js`.
+   - **Note:** These pages will handle email-based sign-up and login, interfacing with JWT-based authentication endpoints. *(PRD Section 3, Tech Stack Document)*
+
+6. **Develop Subscription Dashboard:**
+   - **Action:** Create a dashboard page at `/pages/dashboard.js` where users can view the available subscription tiers grouped by gym pricing. *(PRD Section 3, App Flow Document)
+
+7. **Implement Gym Search Component:**
+   - **Action:** Create a component at `/components/GymSearch.js` that allows users to search for gyms by location. Include controls for adjusting the search radius. *(PRD Section 3, App Flow Document)*
+
+8. **Build Class Booking Interface:**
+   - **Action:** Create a page at `/pages/classes.js` or a component in `/components/ClassBooking.js` which displays upcoming classes, calendar integrations, and booking options. *(PRD Section 3, App Flow Document)*
+
+9. **Develop Partner Dashboard:**
+   - **Action:** Create a partner dashboard page at `/pages/partner/dashboard.js` for gym partners to update gym details, manage class schedules, and view engagement analytics. *(PRD Section 3, Core Features)
+
+10. **Apply Visual Design Guidelines:**
+    - **Action:** Update global styles in `/styles/globals.css` (or the equivalent nextjs global stylesheet) to use a color palette with professional muted shades of blue and darker reds as specified. *(PRD Section 4, Frontend Guidelines Document)*
+
+11. **Enable PWA Capabilities:**
+    - **Action:** Integrate the Next.js PWA plugin (e.g., using `next-pwa`) to enable offline support and a native-like experience. Follow the configuration docs for Next.js PWA. *(Tech Stack Document, PRD Section 1)*
+
+---
+
+## Phase 3: Backend Development
+
+12. **Set Up API Routes for Authentication:**
+    - **Action:** Create API routes in `/pages/api/auth/` for login (`login.js`) and registration (`register.js`). Implement JWT token creation and validation. *(PRD Section 3, Tech Stack Document)*
+
+13. **Implement PayPal Subscription Endpoint:**
+    - **Action:** Create an API route at `/pages/api/paypal/subscription.js` to handle recurring subscription payments with PayPal. *(PRD Section 2, Tech Stack Document)
+
+14. **Create Gym Search API:**
+    - **Action:** Create an API endpoint at `/pages/api/gyms/search.js` that accepts location and radius parameters, queries the Supabase database, and returns matching gyms. *(PRD Section 3, App Flow Document)*
+
+15. **Develop Class Booking API:**
+    - **Action:** Create an API endpoint at `/pages/api/classes/book.js` to manage class booking requests and calendar integrations. *(PRD Section 3)
+
+16. **Set Up Supabase Database Schema:**
+    - **Action:** Using your Supabase dashboard and the MCP server connection configured earlier, create the following tables (use SQL commands via the Supabase interface or migration scripts):
+      - `users` (fields: id, email, password, etc.)
+      - `gyms` (fields: id, name, location, pricing details, etc.)
+      - `subscriptions` (fields: id, user_id, gym_tier, status, etc.)
+      - `classes` (fields: id, gym_id, schedule, available_slots, etc.)
+      - `analytics` (fields: id, gym_id, member_visit_duration, frequency, etc.)
+    - **Reference:** *(Tech Stack Document, PRD Section 3)*
+
+17. **Security – JWT Implementation:**
+    - **Action:** Ensure that every protected API route verifies the JWT provided by the client. Implement middleware logic in `/utils/auth.js` for token verification. *(PRD Section 3, Tech Stack Document)*
+
+---
+
+## Phase 4: Integration
+
+18. **Frontend to Backend Connections:**
+    - **Action:** Utilize `fetch` or `axios` in your Next.js pages/components to interact with the backend API routes (e.g., for authentication, gym search, class booking, and subscription management). *(App Flow Document, PRD Section 3)*
+
+19. **Integrate PayPal Payment Flow:**
+    - **Action:** From the subscription dashboard, connect the payment process via the created PayPal API endpoint. Verify recurring payment setup. *(PRD Section 2, Tech Stack Document)
+
+20. **Map User Actions to API Endpoints:**
+    - **Action:** In the Gym Search and Subscription Tier pages, ensure that user interactions trigger the appropriate API calls to fetch gym data and update user subscriptions. *(App Flow Document)
+
+21. **Validation of Integration:**
+    - **Action:** Test endpoints using `curl` or Postman. For example:
+      ```bash
+      curl -X POST http://localhost:3000/api/auth/login -d '{"email": "example@test.com", "password": "password"}'
+      ```
+    - **Action:** Verify that JWT tokens are correctly issued and validated, and that PayPal transactions return successful responses. *(Q&A, PRD Section 3)*
+
+---
+
+## Phase 5: Deployment
+
+22. **Build Production Version:**
+    - **Action:** Run the Next.js build command:
+      ```bash
+      npm run build
+      ```
+    - **Validation:** Ensure no build errors occur. *(PRD Section 1)
+
+23. **Configure Environment Variables:**
+    - **Action:** Set up environment variables for Supabase connection strings, PayPal API keys, and JWT secrets in a `.env.local` file at the project root.
+    - **Reference:** *(Tech Stack Document, PRD Section 3)*
+
+24. **Deploy Static Assets to AWS S3:**
+    - **Action:** After building, upload static assets (if any) to an AWS S3 bucket in your designated region (e.g., `us-east-1`). Follow your AWS deployment guidelines to configure the bucket and CloudFront distribution if necessary. *(Tech Stack Document, PRD Section 6.2)*
+
+25. **Deploy the Application:**
+    - **Action:** Deploy the Next.js application to your chosen hosting platform (e.g., Vercel or AWS EC2). Configure CI/CD pipelines to automate deployments. *(Deployment Section, Tech Stack Document)
+
+26. **Final End-to-End Testing:**
+    - **Action:** Run end-to-end tests (using tools such as Cypress) to simulate the complete user journey from authentication to gym search, subscription payments, and class booking. *(Q&A: Pre-Launch Checklist, PRD Section 6)
+
+---
+
+This concludes the implementation plan for our universal gym membership PWA. Follow each phase carefully and validate each step to ensure a smooth and robust development process.

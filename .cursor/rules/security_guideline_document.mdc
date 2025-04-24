@@ -1,0 +1,149 @@
+---
+description: Apply these rules when dealing with authentication and backend data transfers
+globs: 
+---
+
+Update this rule if user requested changes to the project requirement, etc.
+# Security Guidelines for the Universal Gym Membership Progressive Web App
+
+This document outlines the comprehensive security principles and requirements to be integrated into every phase of the development of the universal gym membership progressive web app. Adhering to these guidelines ensures that the application is secure by design, resilient, and trustworthy.
+
+---
+
+## 1. Security by Design
+
+- Integrate security during design, development, testing, and deployment phases.
+- Treat all external inputs as untrusted, requiring rigorous validation and sanitization.
+- Build a layered security approach (defense in depth) so that if one layer fails, others mitigate risk.
+
+---
+
+## 2. Authentication & Access Control
+
+- **Robust Authentication:**
+  - Use JWT for authenticating user sessions.
+  - Ensure tokens are generated securely, with proper expiration (exp) and renewal mechanisms.
+- **Secure Password Practices:**
+  - Enforce strong password policies (complexity, length, rotation) and hash passwords using secure algorithms like bcrypt or Argon2 with unique salts.
+- **Session Management:**
+  - Generate unpredictable session identifiers.
+  - Set up secure session cookies with HttpOnly, Secure, and SameSite attributes.
+  - Enforce session timeouts and secure session termination (logout).
+- **Role-Based Access Control (RBAC):**
+  - Implement checks on every sensitive operation to ensure that only authorized users can perform specific actions.
+
+---
+
+## 3. Input Handling & Processing
+
+- **Prevent Injection Attacks:**
+  - Validate, sanitize, and encode all inputs from external sources (user inputs, API calls, files, etc.).
+  - Use parameterized queries or trusted ORMs to avoid SQL/NoSQL injection risks.
+- **Mitigate Cross-Site Scripting (XSS):**
+  - Apply context-aware output encoding on all user-supplied data rendered in the UI.
+  - Implement strong Content Security Policies (CSP) and restrict inline scripts where possible.
+- **Validating Redirects and Forwards:**
+  - Ensure all redirection targets match a pre-approved allow-list to combat unvalidated redirects.
+- **Secure File Uploads:**
+  - Validate file types, sizes, and content before storing them outside the webroot with restricted permissions.
+
+---
+
+## 4. Data Protection & Privacy
+
+- **Encryption at Rest & In Transit:**
+  - Use TLS 1.2+ for data in transit, and encrypt sensitive data stored in databases (e.g., Supabase) and file storage (AWS S3) using AES-256 when applicable.
+- **Secure Cryptography:**
+  - Use current industry-standard encryption algorithms and secure hashing functions (SHA-256 or better for integrity checks, and bcrypt/Argon2 for passwords).
+- **Secrets Management:**
+  - Avoid hardcoding secrets in source code.
+  - Adopt secure vault solutions (e.g., AWS Secrets Manager) for managing API keys, credentials, and other sensitive data.
+- **Privacy & Data Minimization:**
+  - Limit data exposure to only what is necessary for processing requests.
+  - Regularly mask sensitive information and monitor logs to prevent data leakage.
+
+---
+
+## 5. API & Service Security
+
+- **Enforce HTTPS:**
+  - Ensure all API endpoints and communications use HTTPS to protect data integrity and confidentiality.
+- **Rate Limiting and Throttling:**
+  - Implement mechanisms to protect against brute-force and denial-of-service attacks on both authentication and payment endpoints.
+- **Secure Integration with PayPal:**
+  - Validate all responses from the gateway and implement error handling and retry mechanisms in case of timeout or service disruption.
+- **Input Validation on the Server:**
+  - Even with client-side controls, ensure comprehensive server-side validation to protect against malformed API requests.
+
+---
+
+## 6. Web Application Security Hygiene
+
+- **Protection Against CSRF:**
+  - Use anti-CSRF tokens for all state-changing requests.
+- **Security Headers:**
+  - Implement key HTTP security headers such as:
+    - Content-Security-Policy (CSP)
+    - Strict-Transport-Security (HSTS)
+    - X-Content-Type-Options
+    - X-Frame-Options
+    - Referrer-Policy
+- **Cookies Security:**
+  - Set cookies with Secure, HttpOnly, and SameSite attributes.
+- **Client-Side Storage:**
+  - Avoid storing sensitive data in localStorage or sessionStorage.
+- **Subresource Integrity (SRI):**
+  - Use SRI checks for third-party resources to ensure that integrity is maintained.
+
+---
+
+## 7. Infrastructure & Configuration Management
+
+- **Server Hardening:
+  - Disable unnecessary services and features.
+  - Always change default credentials and use strong, unique administrative passwords.
+- **Network Security:**
+  - Expose only necessary ports and services.
+- **Software Updates:**
+  - Keep all systems, libraries, and server software updated to patch vulnerabilities.
+- **Secure TLS/SSL Configuration:**
+  - Adopt current protocols and strong cipher suites, and disable outdated versions.
+- **File Permissions:**
+  - Enforce strict file system permissions to prevent unauthorized access.
+
+---
+
+## 8. Dependency Management
+
+- **Vetting Dependencies:**
+  - Use libraries and frameworks with a strong security track record.
+  - Limit the dependency footprint to only what is absolutely necessary.
+- **Vulnerability Scanning:**
+  - Regularly scan dependencies with Software Composition Analysis (SCA) tools for vulnerabilities.
+- **Lockfiles:**
+  - Utilize package-lock files (e.g., package-lock.json, yarn.lock, Pipfile.lock) to ensure consistent dependency versions.
+
+---
+
+## 9. Specific Considerations for the App
+
+- **Progressive Web App (PWA):**
+  - Follow offline and caching best practices without compromising security (e.g., secure service workers).
+- **Integration with PayPal:**
+  - Implement robust error handling and ensure sensitive payment data is not stored unnecessarily on the server.
+- **JWT and Authentication Flows:**
+  - Validate tokens on every request, with proper error handling for invalid or expired tokens.
+- **Gym Partner Dashboard:**
+  - Ensure that partner-level functionalities, including communication features and sensitive analytics data, have additional authorization checks and input validation.
+
+---
+
+## 10. Summary
+
+This security guideline is designed to provide a robust and comprehensive approach to developing and maintaining a secure universal gym membership app. By incorporating these practices across authentication, input validation, data protection, and overall system configuration, the platform will be built to prevent common vulnerabilities while ensuring smooth and secure operations.
+
+For any further questions on specific security implementation details during later stages of development, please flag for review to ensure adherence to the secure coding and design practices as outlined above.
+
+---
+
+*Remember: Every layer matters. Security is a process, not a one-time setup. Maintain diligence in regular audits, updates, and proactive monitoring.*

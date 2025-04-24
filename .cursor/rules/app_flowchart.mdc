@@ -1,0 +1,28 @@
+---
+description: Apply these rules when making changes to the project
+globs:
+alwaysApply: true
+---
+
+Update this rule if user requested changes to the project requirement, etc.
+flowchart TD
+    A[Landing Page: Login & Registration]
+    A --> B[User Dashboard]
+    B --> C[View Subscription Tiers]
+    C --> D[Select Subscription Tier]
+    D --> E[Payment Page: PayPal Integration]
+    E --> F[Process Payment]
+    F --> G[Subscription Completed]
+    G --> H[Gym Search & Discovery]
+    H --> I[Enter Search Criteria: Location & Radius]
+    I --> J[Display Gyms in Selected Tier]
+    I --> K[Display Gyms Outside Tier for Upgrade]
+    J --> L[View Gym Details & Class Schedules]
+    K --> L
+    L --> M[Book Classes]
+
+    N[Gym Partner Login]
+    N --> O[Gym Partner Dashboard]
+    O --> P[Update Pricing & Class Schedules]
+    O --> Q[View Member Engagement Analytics]
+    O --> R[Communicate with Subscribers (Extra Fee)]

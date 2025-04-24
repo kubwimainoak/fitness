@@ -1,0 +1,105 @@
+---
+description: review this document when making changes to the frontend and for styling guidance
+globs: 
+---
+
+Update this rule if user requested changes to the project requirement, etc.
+# Frontend Guideline Document
+
+This document explains the setup and guidelines for the frontend of our progressive web app (PWA) that offers a universal gym membership experience. The aim is to provide a clear, everyday language overview so anyone can understand how our frontend is built and maintained.
+
+## Frontend Architecture
+
+Our app’s frontend is built with Next.js, a popular React-based framework. Next.js helps us create fast and responsive pages with server-side rendering and static generation, which means pages load quickly and are easily indexable. Since we plan to offer a PWA, Next.js is a great match to deliver a smooth, app-like experience on both desktop and mobile devices. This design is both scalable for future features and maintainable with a clear coding structure.
+
+Key points:
+- Uses Next.js to manage client-side logic and rendering.
+- PWA capabilities ensure offline-like functionality and a native feel.
+- Component-based design supporting scalability and easier updates.
+
+## Design Principles
+
+We guide our frontend development with a few core design principles that keep our app user-friendly:
+
+1. Usability: Making sure that users can easily navigate the app, book classes, and manage subscriptions without confusion.
+2. Accessibility: Designing interfaces that everyone can use safely and comfortably.
+3. Responsiveness: Ensuring our app works just as well on mobile devices as it does on desktops.
+
+These ideas are put into practice by using intuitive layouts, clear buttons, and consistent interactions, so users immediately know how to use our features.
+
+## Styling and Theming
+
+### Styling Approach
+
+Our CSS approach is designed to be modular and understandable. We follow a clear methodology (inspired by BEM) to keep our styles organized and maintainable. We might also use SASS to help write CSS in a structured way. This guarantees that each style only affects the desired part of the layout.
+
+### Theming
+
+For theming, we have chosen a color palette that fits the professional and welcoming vibe of a gym membership platform. Our palette includes:
+
+- Rich Blue: for a calm and reliable feel (e.g., #1E3A8A).
+- Darker Red: to add a touch of energy and sophistication (e.g., #8B0000).
+- Additional neutral and muted shades like dark gray (#333333) and soft white (#F5F5F5) for balance.
+
+This palette is applied consistently across the app to ensure that every page shares a harmonious look and feel. The overall style is modern and flat with a hint of material design – clean, straightforward, and visually engaging.
+
+### Fonts
+
+We’ll use clear, readable fonts that match the modern and professional aesthetic. A commonly recommended choice might be system fonts with fallbacks like Helvetica Neue, Arial, and sans-serif or even Google Fonts such as Roboto for a fresher look.
+
+## Component Structure
+
+Our frontend is built around reusable components – these are the building blocks of our app. Each component is responsible for a specific function, like a subscription card, gym list item, or class booking button. Components are organized in a logical file structure that mimics the structure of our user interfaces, making it easy to locate and update the code for any particular element.
+
+Benefits of this approach include:
+- Easier debugging and faster development due to reusability
+- Encapsulation of code, which enhances maintainability
+- The ability to improve a single component without affecting the whole system
+
+## State Management
+
+To keep track of data through our app, we use React’s Context API and state hooks. This allows us to manage data such as user authentication tokens, subscription details, gym listings, and class schedules in a central and predictable way. Should the need arise in the future, the structure is in place to adopt more robust state management libraries like Redux.
+
+This system ensures:
+- Consistent data across all user interfaces
+- Smooth transitions and updates when users interact with the app (e.g., booking a class or switching subscription tiers)
+
+## Routing and Navigation
+
+Routing is managed by Next.js’s built-in routing system. This means each page or view in our app is based on file structure, making navigation clear and simple. There is a clear navigation bar on key pages that allows users to move between sections such as:
+
+- Dashboard for subscription tiers and gym listings
+- Detailed views for individual gyms and class schedules
+- Booking pages with real-time updates
+- Partner dashboard for gym partners
+
+The routing system allows for deep linking, which is great for performance and shareable URLs, and it keeps the user experience predictable and streamlined.
+
+## Performance Optimization
+
+Optimizing frontend performance is a key part of our design:
+
+- Lazy Loading & Code Splitting: Components and modules are loaded only when needed, reducing initial load time.
+- Asset Optimization: Images and static assets are optimized, ensuring fast delivery.
+- Efficient State Updates: With React’s virtual DOM and Next.js optimizations, changes in the app are rendered quickly.
+- PWA Caching: Our service workers cache important resources, which helps the app run efficiently even on limited bandwidth.
+
+These strategies work together to provide a smooth and responsive experience that makes our app enjoyable to use.
+
+## Testing and Quality Assurance
+
+Quality is ensured at every stage through a range of testing strategies:
+
+- Unit Tests: Individual components and functions are tested to ensure they work as expected.
+- Integration Tests: Combination of components are tested together to confirm that data flows correctly.
+- End-to-End Tests: User interactions are simulated to make sure the complete flow from login to payment works without issues.
+
+Tools such as Jest and React Testing Library are used for these tests, ensuring that our code remains reliable, bug-free, and easy to update as the app evolves.
+
+## Conclusion and Overall Frontend Summary
+
+The frontend guideline for our universal gym membership app is built around a modern, scalable, and user-friendly architecture. By leveraging Next.js for a PWA experience, a consistent color and design style with rich muted blues and dark reds, and robust state and component management, we provide a smooth interface that meets the needs of our users.
+
+Our approach prioritizes usability, accessibility, responsiveness, and performance optimization, ensuring that whether users are booking a class or exploring gym options, they have a seamless experience. Additionally, extensive testing and organized state management guarantee that our frontend remains stable and adaptable over time, even as the project grows.
+
+These guidelines embody our commitment to a high-quality, maintainable, and future-proof frontend that aligns with the project’s goals and user needs.

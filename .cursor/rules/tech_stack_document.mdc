@@ -1,0 +1,86 @@
+---
+description: review this document before adding any new packages
+globs: 
+---
+
+Update this rule if user requested changes to the project requirement, etc.
+# Tech Stack Document
+
+This document explains our technology choices for building a progressive web app that offers a "universal gym membership." Our goal is to create a platform that allows gym members to explore and subscribe to different gyms with ease while also providing gym partners with a dashboard to manage their details and insights. Below is a clear, non-technical explanation of the tech stack and its benefits.
+
+## Frontend Technologies
+
+Our front end is what users interact with, so it has to be fast, responsive, and beautiful:
+
+- **Next.js**
+  - A powerful framework for building user interfaces. It helps us create fast-loading pages and ensures that our app works well on both desktop and mobile devices.
+- **Progressive Web App (PWA) Capabilities**
+  - This feature makes the app behave like a native app even though it's running in a web browser. Users get a smooth experience that feels like using an installation on their phone or computer.
+- **User Interface Design**
+  - We use a professional, muted color palette with shades of blue and darker reds. These choices create a visually appealing and easy-to-navigate interface that aligns with our brand identity.
+
+## Backend Technologies
+
+The backend is the behind-the-scenes engine that powers our application and manages data securely:
+
+- **Node.js**
+  - Our main server framework. It handles user requests, runs business logic, and ensures that data flows smoothly throughout the app.
+- **JWT (JSON Web Tokens)**
+  - These are used for user authentication. They help keep user sessions secure without sharing sensitive information.
+- **Supabase**
+  - This is our database. It stores user details, gym information, subscription data, class bookings, and analytics that gym partners use for insights.
+- **AWS S3**
+  - Used for file storage, AWS S3 is where we keep static assets like images or media files. It offers a secure and scalable storage solution.
+- **PayPal Integration**
+  - Integrated into our backend, PayPal handles all recurring subscription payments securely. This means users can subscribe to gym tiers with confidence knowing their transactions are protected.
+
+## Infrastructure and Deployment
+
+Reliable infrastructure and smooth deployment processes are critical for maintaining a robust and scalable application:
+
+- **Hosting Platforms**
+  - Our backend (Node.js server and database) will be hosted on robust servers ensuring high availability. AWS S3 will manage our static content, ensuring fast delivery across the globe.
+- **CI/CD Pipelines**
+  - Continuous Integration and Continuous Deployment tools are set in place to allow for quick and reliable updates to the app. This means that improvements and fixes are rolled out frequently without downtime.
+- **Version Control with Git**
+  - We use version control to manage changes to the code base responsibly. This makes it easier for our team to collaborate and keep track of updates.
+- **Cursor IDE**
+  - An advanced Integrated Development Environment that not only supports code writing but also provides AI-powered suggestions. It streamlines development and ensures that our code remains clean and efficient.
+
+## Third-Party Integrations
+
+We leverage several third-party services that add key functionalities:
+
+- **PayPal**
+  - As previously mentioned, this handles recurring payments, allowing users to subscribe easily and securely.
+- **Mapping Libraries and Calendar Integrations**
+  - Although not detailed in the initial discussion, these integrations can support location-based gym searches and smooth scheduling for class bookings.
+- **Analytics Tools**
+  - Tools that enable dashboards for gym partners to analyze user engagement, tracking metrics like visit frequency and duration.
+- **Communication Modules**
+  - These allow gym partners to reach out to subscribers directly for extra fees, helping them market sessions or offer special deals.
+
+## Security and Performance Considerations
+
+Keeping users' data secure and ensuring the app runs smoothly are at the core of our design:
+
+- **Authentication & Authorization**
+  - Using JWT, our app verifies the identity of each user securely. This means that every member logging in is who they claim to be.
+- **Payment Security**
+  - All transactions via PayPal are managed securely, giving our users confidence in handling their sensitive financial information.
+- **Data Protection**
+  - Data, including user profiles and gym usage statistics, is stored securely in Supabase. We plan for encryption both in transit and at rest to prevent unauthorized access.
+- **Performance Optimization**
+  - Our PWA is optimized for fast load times and smooth scrolling. The use of Next.js also helps with rapid, dynamic content updates, ensuring a highly responsive experience regardless of device.
+
+## Conclusion and Overall Tech Stack Summary
+
+To sum it up, we have carefully selected a set of technologies that work seamlessly together to provide a robust, scalable, and secure app experience:
+
+- On the **frontend**, Next.js and PWA capabilities ensure a swift, responsive, and engaging user interface with a professional aesthetic.
+- The **backend** is powered by Node.js, secured by JWT, and supported by Supabase and AWS S3, with secure payment processing via PayPal.
+- Our **infrastructure** choices, backed by CI/CD pipelines and robust version control, allow us to deploy updates reliably and scale as we grow.
+- Strategic **third-party integrations** like PayPal, mapping libraries, and analytical tools enhance functionality without reinventing the wheel.
+- Lastly, we have built in strong **security and performance optimizations** to protect user data and ensure the app remains fast and efficient.
+
+This tech stack aligns perfectly with the project’s goals: to provide gym members a flexible, easy-to-use experience and gym partners with actionable insights, all while ensuring a secure and scalable platform that can grow with our user base.
