@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin, Star, Filter, Search as SearchIcon, Dumbbell, Users, Clock, ChevronDown, QrCode, Calendar } from "lucide-react";
+import { MapPin, Star, Filter, Search as SearchIcon, Dumbbell, Users, Clock, QrCode, Calendar } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -281,13 +282,16 @@ const generateMockClasses = (gymId: string): GymClass[] => {
 };
 
 export default function FindGymsPage() {
+  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [maxDistance, setMaxDistance] = useState(5); // miles
-  const [gyms, setGyms] = useState<Gym[]>(mockGyms);
+  const [gyms, _setGyms] = useState<Gym[]>(mockGyms);
   const [filteredGyms, setFilteredGyms] = useState<Gym[]>(mockGyms);
   const [gymTier, setGymTier] = useState<"all" | "basic" | "premium">("all");
   const [sortBy, setSortBy] = useState<"distance" | "rating">("distance");
   const [filterOpen, setFilterOpen] = useState(false);
+  const [selectedGym, setSelectedGym] = useState<Gym | null>(null);
+  const [location, setLocation] = useState("New York, NY");
 
   // Filter gyms based on search and filters
   useEffect(() => {

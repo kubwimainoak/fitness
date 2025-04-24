@@ -118,7 +118,7 @@ export default function LoginPage() {
             {isLoading ? "Logging in..." : "Login"}
           </Button>
           <div className="text-center text-sm">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/register" className="text-[#1E3A8A] hover:underline">
               Sign up
             </Link>

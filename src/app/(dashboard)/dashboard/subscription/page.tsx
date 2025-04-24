@@ -189,7 +189,7 @@ export default function SubscriptionPage() {
       <Card className="transition-all duration-300 hover:shadow-md border hover:border-[#1E3A8A]/30">
         <CardHeader>
           <CardTitle>Your Benefits</CardTitle>
-          <CardDescription>What's included in your {subscription.name} plan</CardDescription>
+          <CardDescription>What&apos;s included in your {subscription.name} plan</CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-3">
