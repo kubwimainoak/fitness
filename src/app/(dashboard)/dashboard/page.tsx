@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CreditCard, CheckCircle2, Info } from "lucide-react";
 
@@ -110,7 +111,7 @@ const annualPlans: SubscriptionPlan[] = [
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [currentSubscription, _setCurrentSubscription] = useState<string | null>(null);
+  const [currentSubscription, setCurrentSubscription] = useState<string | null>(null);
 
   const handleSelectPlan = (planId: string) => {
     // Navigate to the plan details page

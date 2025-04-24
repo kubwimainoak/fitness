@@ -133,7 +133,7 @@ export default function PlanDetailsPage() {
     return (
       <div className="text-center py-16">
         <h1 className="text-2xl font-bold mb-4">Plan Not Found</h1>
-        <p className="text-gray-500 mb-8">The subscription plan you&apos;re looking for doesn&apos;t exist.</p>
+        <p className="text-gray-500 mb-8">The subscription plan you're looking for doesn't exist.</p>
         <Button onClick={() => router.push("/dashboard")}>
           Return to Dashboard
         </Button>
@@ -186,7 +186,7 @@ export default function PlanDetailsPage() {
               </div>
               
               <div>
-                <h3 className="font-medium mb-3">What&apos;s Included:</h3>
+                <h3 className="font-medium mb-3">What's Included:</h3>
                 <ul className="space-y-3">
                   {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-2">
@@ -222,7 +222,7 @@ export default function PlanDetailsPage() {
               <div>
                 <h3 className="font-medium mb-1">Refunds</h3>
                 <p className="text-gray-600">
-                  We offer a 7-day money-back guarantee. If you&apos;re not satisfied with your subscription, 
+                  We offer a 7-day money-back guarantee. If you're not satisfied with your subscription, 
                   you can request a refund within 7 days of purchase.
                 </p>
               </div>

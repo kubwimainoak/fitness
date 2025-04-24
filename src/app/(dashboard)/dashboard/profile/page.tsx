@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Save, Edit, Bell, ShieldCheck, User, Camera } from "lucide-react";
-import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -134,11 +133,9 @@ export default function ProfilePage() {
             <div className="relative">
               <div className="h-32 w-32 rounded-full bg-[#1E3A8A]/10 flex items-center justify-center overflow-hidden border-4 border-white shadow-md">
                 {userData.profileImage ? (
-                  <Image
+                  <img
                     src={userData.profileImage}
                     alt="Profile"
-                    width={128}
-                    height={128}
                     className="h-full w-full object-cover"
                   />
                 ) : (
