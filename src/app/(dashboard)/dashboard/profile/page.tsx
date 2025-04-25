@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Save, Edit, Bell, ShieldCheck, User, Camera } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -133,11 +134,14 @@ export default function ProfilePage() {
             <div className="relative">
               <div className="h-32 w-32 rounded-full bg-[#1E3A8A]/10 flex items-center justify-center overflow-hidden border-4 border-white shadow-md">
                 {userData.profileImage ? (
-                  <img
-                    src={userData.profileImage}
-                    alt="Profile"
-                    className="h-full w-full object-cover"
-                  />
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={userData.profileImage}
+                      alt="Profile"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 ) : (
                   <User className="h-16 w-16 text-[#1E3A8A]/50" />
                 )}
