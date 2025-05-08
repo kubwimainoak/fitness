@@ -1,20 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
   LayoutDashboard, 
   Search, 
   Calendar, 
-  CreditCard, 
   UserCircle, 
-  Settings, 
-  LogOut,
-  Menu
+  LogOut
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { BottomNavigation } from "@/components/BottomNavigation";
 
 interface NavItem {
   title: string;
@@ -28,7 +25,6 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const navItems: NavItem[] = [
     {
@@ -47,47 +43,22 @@ export default function DashboardLayout({
       icon: <Calendar className="h-5 w-5" />,
     },
     {
-      title: "Subscription",
-      href: "/dashboard/subscription",
-      icon: <CreditCard className="h-5 w-5" />,
-    },
-    {
       title: "Profile",
       href: "/dashboard/profile",
       icon: <UserCircle className="h-5 w-5" />,
-    },
-    {
-      title: "Settings",
-      href: "/dashboard/settings",
-      icon: <Settings className="h-5 w-5" />,
     },
   ];
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-[#1E3A8A]/[0.02]">
       {/* Mobile Navigation Toggle */}
-      <div className="md:hidden p-4 bg-white border-b flex justify-between items-center shadow-sm">
-        <h1 className="text-xl font-bold text-[#1E3A8A]">Universal Gym</h1>
-        <Button 
-          variant="ghost" 
-          size="icon"
-          onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-        >
-          <Menu className="h-6 w-6" />
-        </Button>
-      </div>
+     
 
-      {/* Sidebar Navigation */}
-      <div 
-        className={`${
-          isMobileNavOpen ? "block" : "hidden"
-        } md:block w-full md:w-64 bg-white border-r p-6 space-y-8 transition-all duration-300 ease-in-out shadow-sm`}
-      >
-        <div className="hidden md:block">
-          <div className="py-3 px-4 bg-[#1E3A8A]/[0.05] rounded-lg mb-2">
-            <h1 className="text-xl font-bold text-[#1E3A8A]">Universal Gym</h1>
-            <p className="text-sm text-gray-500">Membership Dashboard</p>
-          </div>
+      {/* Sidebar Navigation - Desktop Only */}
+      <div className="hidden md:block w-64 bg-white border-r p-6 space-y-8 transition-all duration-300 ease-in-out shadow-sm">
+        <div className="py-3 px-4 bg-[#1E3A8A]/[0.05] rounded-lg mb-2">
+          <h1 className="text-xl font-bold text-[#1E3A8A]">Universal Gym</h1>
+          <p className="text-sm text-gray-500">Membership Dashboard</p>
         </div>
 
         <nav className="space-y-1">
@@ -120,11 +91,14 @@ export default function DashboardLayout({
       </div>
 
       {/* Main Content */}
-      <div className="flex-grow p-6 md:p-8 overflow-auto">
+      <div className="flex-grow p-6 md:p-8 overflow-auto pb-20 md:pb-8">
         <div className="max-w-7xl mx-auto">
           {children}
         </div>
       </div>
+
+      {/* Bottom Navigation - Mobile Only */}
+      <BottomNavigation />
     </div>
   );
 } 

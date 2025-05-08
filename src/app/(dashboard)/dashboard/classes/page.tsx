@@ -402,6 +402,7 @@ export default function ClassesPage() {
         title: "Class is Full",
         description: "Sorry, there are no spots available for this class.",
         variant: "destructive",
+        duration: 2000,
       });
       return;
     }
@@ -410,6 +411,7 @@ export default function ClassesPage() {
     toast({
       title: "Class Booked",
       description: `You have successfully booked ${classItem.name} with ${classItem.instructor}.`,
+      duration: 2000,
     });
     
     // Update available spots
