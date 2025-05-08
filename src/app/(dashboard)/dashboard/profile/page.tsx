@@ -433,7 +433,7 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between border-b py-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b py-4 gap-4">
                       <div className="flex items-center gap-3">
                         <div className="bg-[#1E3A8A]/10 p-2 rounded-full transition-all duration-300 hover:bg-[#1E3A8A]/20">
                           <Calendar className="h-5 w-5 text-[#1E3A8A]" />
@@ -446,13 +446,13 @@ export default function ProfilePage() {
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A]/10 transition-colors duration-300"
+                        className="w-full sm:w-auto border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A]/10 transition-colors duration-300"
                       >
                         Change Billing Date
                       </Button>
                     </div>
 
-                    <div className="flex items-center justify-between pt-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-4 gap-4">
                       <div className="flex items-center gap-3">
                         <div className="bg-[#1E3A8A]/10 p-2 rounded-full transition-all duration-300 hover:bg-[#1E3A8A]/20">
                           <CreditCard className="h-5 w-5 text-[#1E3A8A]" />
@@ -466,23 +466,23 @@ export default function ProfilePage() {
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A]/10 transition-colors duration-300"
+                        className="w-full sm:w-auto border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A]/10 transition-colors duration-300"
                       >
                         Update Payment
                       </Button>
                     </div>
 
-                    <div className="flex justify-between pt-6 mt-6 border-t">
+                    <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 mt-6 border-t">
                       <Button 
                         variant="outline" 
-                        className="border-[#8B0000] text-[#8B0000] hover:bg-[#8B0000]/10 transition-colors duration-300"
+                        className="w-full sm:w-auto border-[#8B0000] text-[#8B0000] hover:bg-[#8B0000]/10 transition-colors duration-300"
                         onClick={handleCancelSubscription}
                       >
                         <Trash2 className="h-4 w-4 mr-2" />
                         Cancel Subscription
                       </Button>
                       <Button 
-                        className="bg-gradient-to-r from-[#1E3A8A] to-[#3E5ABA] hover:from-[#1E3A9A] hover:to-[#4E6ACA] text-white transition-all duration-300"
+                        className="w-full sm:w-auto bg-gradient-to-r from-[#1E3A8A] to-[#3E5ABA] hover:from-[#1E3A9A] hover:to-[#4E6ACA] text-white transition-all duration-300"
                       >
                         Change Plan
                         <ArrowRight className="h-4 w-4 ml-2" />
@@ -657,16 +657,16 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-4 pt-4 border-t">
+              <div className="flex flex-col sm:flex-row justify-end gap-4 pt-4 border-t">
                 <Button 
                   variant="outline" 
-                  className="border-[#8B0000] text-[#8B0000] hover:bg-[#8B0000]/10 transition-colors duration-300"
+                  className="w-full sm:w-auto border-[#8B0000] text-[#8B0000] hover:bg-[#8B0000]/10 transition-colors duration-300"
                 >
                   Request Data Export
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="border-[#8B0000] text-[#8B0000] hover:bg-[#8B0000]/10 transition-colors duration-300"
+                  className="w-full sm:w-auto border-[#8B0000] text-[#8B0000] hover:bg-[#8B0000]/10 transition-colors duration-300"
                 >
                   Delete Account
                 </Button>
